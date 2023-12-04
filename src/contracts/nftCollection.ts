@@ -8,7 +8,7 @@ import {
   beginCell,
 } from "ton-core";
 import { Buffer } from "buffer";
-import { encodeOffChainContent, OpenedWallet } from "./utils";
+import { encodeOffChainContent } from "./utils";
 
 export type CollectionData = {
   ownerAddress: Address;

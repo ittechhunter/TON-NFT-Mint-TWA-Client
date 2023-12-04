@@ -17,7 +17,7 @@ export function useNFTCollectionContract() {
       Address.parse(
         network === CHAIN.MAINNET
           ? ""
-          : "EQD_T9Lj4CNJ0sgT7qwDlLZuEUIFobwCKKoZB_dGirVEEBeL"
+          : String(import.meta.env.VITE_COLLECTION_ADDRESS)
       )
     );
     return client.open(contract) as OpenedContract<NFTCollection>;

@@ -55,41 +55,6 @@ const NFTMinter = () => {
 		}
 	}
 
-	const handleTopUpButtonClick = async (): Promise<void> => {
-		try {
-			await sendTopUpBalance(1);
-			alert("Successfully topped up")
-		} catch (error) {
-			console.log(error)
-			alert("Something went wrong")
-		}
-	}
-
-	const handleDeployButtonClick = async (): Promise<void> => {
-		try {
-			// await sendTopUpBalance(1);
-			// alert("Successfully topped up")
-			await sendChangeContent({
-				collectionContentUrl: `ipfs://${metadataIpfsHash}/collection.json`,
-				commonContentUrl: `ipfs://${metadataIpfsHash}/`,
-				royaltyPercent: 0.05,
-				royaltyAddress: ownerAddress,
-			})
-			// alert("Successfully deployed")
-		} catch (error) {
-			console.log(error)
-			alert("Something went wrong")
-		}
-	}
-
-	const handleAddNewItemButtonClick = async (): Promise<void> => {
-		try {
-		} catch (error) {
-			console.log(error)
-			alert("Something went wrong")
-		}
-	}
-
 	useEffect(() => {
 		let timeoutId: any
 		if (image) {
@@ -108,7 +73,7 @@ const NFTMinter = () => {
 
 	return isLoading ? (
 		<div className="flex items-center justify-center h-auto">
-			<div className="w-96 bg-white rounded-xl shadow-[0_3px_10px_rgb(0,0,0,0.2)] overflow-hidden">
+			<div className="w-full bg-white rounded-xl shadow-[0_3px_10px_rgb(0,0,0,0.2)] overflow-hidden">
 				<div className="h-32 flex flex-col items-center justify-center">
 					<h1 className="mr-auto ml-8 font-semibold text-gray-700 text-xl mb-6">Uploading...</h1>
 					<div className="w-80 h-1 bg-gray-300 rounded">
@@ -119,48 +84,32 @@ const NFTMinter = () => {
 		</div>
 	) : isUploaded ? (
 		<div className="h-auto flex flex-col justify-center items-center relative">
-			<div className="w-96 pb-8 bg-white rounded-xl shadow-[0_3px_10px_rgb(0,0,0,0.2)] overflow-hidden flex flex-col justify-center items-center">
-				<div className="flex items-center justify-center h-16 ">
-					<div className="w-12 h-12 flex items-center justify-center rounded-full bg-green-600">
-						<span className="material-icons text-white text-4xl">done</span>
-					</div>
-				</div>
-				<h1 className="font-semibold text-gray-700 text-center my-1 text-xl">Uploaded Successfully!</h1>
+			<div className="w-full pb-8 bg-white rounded-xl shadow-[0_3px_10px_rgb(0,0,0,0.2)] overflow-hidden flex flex-col justify-center items-center">
+				<h1 className="font-semibold text-green-600 text-center my-4 text-xl">Uploaded Successfully!</h1>
 				<img src={image} alt={image} className="w-80 h-72 rounded-2xl my-4" />
 				<div className="relative flex items-center mt-2">
-					<input
-						type="text"
-						value={image}
-						className="border p-3 pr-24 w-80 rounded-lg text-gray-800 bg-blue-50 text-xs flex items-center truncate"
-						readOnly
-					/>
-				</div>
-				<div className="relative flex flex-col items-center mt-2">
-					<button
-						className="bg-blue-600 mb-3 text-white px-4 py-2 rounded-lg text-sm"
-						onClick={handleTopUpButtonClick}>
-						Top Up
-					</button>
-					<button
-						className="bg-blue-600 mb-3 text-white px-4 py-2 rounded-lg text-sm"
-						onClick={handleDeployButtonClick}>
-						Change NFT Collection Content
-					</button>
-					<button
-						className="bg-blue-600 mb-3 text-white px-4 py-2 rounded-lg text-sm"
-						onClick={handleAddNewItemButtonClick}>
-						Add this item
-					</button>
+					<h4 className="font-semibold text-gray-700 text-center my-4 text-xs">{image}</h4>
 				</div>
 			</div>
 		</div>
 	) : connected ? (
 		<div className="h-auto flex flex-col justify-center items-center relative">
-			<div className="w-96 h-auto mx-auto bg-white rounded-xl shadow-[0_3px_10px_rgb(0,0,0,0.2)] overflow-hidden">
+			<div className="w-full h-auto mx-auto bg-white rounded-xl shadow-[0_3px_10px_rgb(0,0,0,0.2)] overflow-hidden">
 				<div className="px-8 py-4 flex flex-col items-center">
-					<h4 className="font-semibold text-gray-700 text-xs">Contract Address: {address?.toString()} </h4>
-					<h4 className="font-semibold text-gray-700 text-xs my-1">Current Item Count: {itemCount?.toString()} </h4>
-					<h4 className="font-semibold text-gray-700 text-xs my-1">Owner Address: {ownerAddress?.toString()} </h4>
+					<div className="w-auto">
+						<div className="my-0">
+							<h4 className="font-semibold text-gray-400 text-xs"> Contract Address: </h4>
+							<h5 className="font-semibold text-gray-700 text-xs"> {address ? address.toString() : '___'} </h5>
+						</div>
+						<div className="my-1">
+							<h4 className="font-semibold text-gray-400 text-xs"> Current Item Count: </h4>
+							<h5 className="font-semibold text-gray-700 text-xs"> {itemCount? itemCount.toString() : '___'} </h5>
+						</div>
+						<div className="my-1">
+							<h4 className="font-semibold text-gray-400 text-xs"> Owner Address: </h4>
+							<h5 className="font-semibold text-gray-700 text-xs"> {ownerAddress? ownerAddress.toString() : '___'} </h5>
+						</div>
+					</div>
 				</div>
 				<div className="px-8 py-4 flex flex-col items-center">
 					<h1 className="font-semibold text-gray-700 text-xl my-4">Upload your image</h1>
@@ -195,7 +144,7 @@ const NFTMinter = () => {
 		</div>
 	) : (
 		<div className="h-48 flex flex-col justify-center items-center relative">
-			<div className="w-96 h-auto mx-auto bg-white rounded-xl shadow-[0_3px_10px_rgb(0,0,0,0.2)] overflow-hidden">
+			<div className="w-full h-auto mx-auto bg-white rounded-xl shadow-[0_3px_10px_rgb(0,0,0,0.2)] overflow-hidden">
 				<div className="px-8 py-4 flex flex-col items-center">
 					<h1 className="font-semibold text-gray-700 text-xl my-4">Connect your wallet</h1>
 				</div>

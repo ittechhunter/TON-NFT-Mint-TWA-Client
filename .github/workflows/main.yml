@@ -23,7 +23,7 @@ jobs:
     runs-on: ubuntu-latest
     environment: production
     env:
-      VITE_API: "http://localhost:3000"
+      VITE_API: "http://http://45.61.160.148:3000"
     steps:
       - name: Checkout
         uses: actions/checkout@v3
