@@ -40,29 +40,29 @@ const NFTMinter = () => {
 				const formData = new FormData()
 				formData.append("image", file)
 
-				// const response = await axios.post(`${import.meta.env.VITE_API}/upload`, formData)
-				// if (response.status === 200) {
-				// 	const data = (response.data) as Data
-				// 	setImage(data.url)
-				// 	setMetadataIpfsHash(data.metadataIpfsHash)
-				// } else {
-				// 	throw new Error("Image upload failed")
-				// }
-				fetch(`${import.meta.env.VITE_API}/upload`)
-				.then(response => {
-					if (response.ok) {
-						throw new Error("Image upload failed")
-					}
-					return response.json();
-				})
-				.then(data => {
-					const _data = data as Data
-					setImage(_data.url)
+				const response = await axios.post(`${import.meta.env.VITE_API}/upload`, formData)
+				if (response.status === 200) {
+					const data = (response.data) as Data
+					setImage(data.url)
 					setMetadataIpfsHash(data.metadataIpfsHash)
-				})
-				.catch(error => {
-					console.error('Error:', error);
-				});
+				} else {
+					throw new Error("Image upload failed")
+				}
+				// fetch(`${import.meta.env.VITE_API}/upload`)
+				// .then(response => {
+				// 	if (response.ok) {
+				// 		throw new Error("Image upload failed")
+				// 	}
+				// 	return response.json();
+				// })
+				// .then(data => {
+				// 	const _data = data as Data
+				// 	setImage(_data.url)
+				// 	setMetadataIpfsHash(data.metadataIpfsHash)
+				// })
+				// .catch(error => {
+				// 	console.error('Error:', error);
+				// });
 			}
 		} catch (error) {
 			console.log(error)
