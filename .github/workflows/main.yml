@@ -23,7 +23,7 @@ jobs:
     runs-on: ubuntu-latest
     environment: production
     env:
-      VITE_API: "https://5a42-45-61-160-148.ngrok.io"
+      VITE_API: "https://5220-45-61-160-148.ngrok.io"
       VITE_COLLECTION_ADDRESS: "EQAqQ-QffpuMJBW2QPzlna-GVF9ykBSSaUKQcKiMEUPtDcMU"
     steps:
       - name: Checkout
